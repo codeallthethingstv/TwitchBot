@@ -1,9 +1,9 @@
-package de.HannesGames.TwitchBot.util.data;
+package de.HannesGames.HGBot.util;
 
 import java.io.*;
 import java.util.Properties;
 
-public class getSecrets {
+public class GetSecrets {
     static File f = new File("secure.HG");
     static Properties prop = new Properties();
     static InputStream input = null;
@@ -21,60 +21,8 @@ public class getSecrets {
         }
         return false;
     }
-    public static void setConfig() {
-        try {
-            output = new FileOutputStream(f);
-
-            // set the properties value
-            prop.setProperty("clientID ", setSecrets.clientID());
-            prop.setProperty("authKey", setSecrets.authKey());
-            prop.setProperty("username", setSecrets.username());
-
-            // save properties to project root folder
-            prop.store(output, null);
-
-        } catch (IOException io) {
-            io.printStackTrace();
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        }
-    }
-
-    public void getConfig() {
-          setConfig();
-        if (checkFile(f)) {
-            try {
-
-                input = new FileInputStream(f);
-
-                // load a properties file
-                prop.load(input);
-
-                // get the property value and print it out
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } finally {
-                if (input != null) {
-                    try {
-                        input.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
 
     public static String getClientID() {
-        setConfig();
         if (checkFile(f)) {
             try {
 
@@ -102,7 +50,6 @@ public class getSecrets {
     }
 
     public static String getAuthKey() {
-        setConfig();
         if (checkFile(f)) {
             try {
 
@@ -131,7 +78,6 @@ public class getSecrets {
     }
 
     public static String getUsername() {
-        setConfig();
         if (checkFile(f)) {
             try {
 
@@ -156,5 +102,30 @@ public class getSecrets {
             }
         }
         return prop.getProperty("username");
+    }
+
+    public void getConfig() {
+        if (checkFile(f)) {
+            try {
+
+                input = new FileInputStream(f);
+
+                // load a properties file
+                prop.load(input);
+
+                // get the property value and print it out
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                if (input != null) {
+                    try {
+                        input.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }
