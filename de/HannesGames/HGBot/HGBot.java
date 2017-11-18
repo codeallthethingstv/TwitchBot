@@ -50,23 +50,47 @@ public class HGBot extends TwitchBot {
         if (channel.isMod(user)) {
             System.out.println("USER IS MOD");
         } else {
-            logger.info("USER HAS GOT A TIMEOUT FOR 1 SECOND  \n USER: " + user);
+            //logger.info("USER HAS GOT A TIMEOUT FOR 1 SECOND  \n USER: " + user);
         }
     }
-
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
-        timeoutslog();
-
+        banlog();
         if (cmd.equalsIgnoreCase("test")) {
             if (channel.isMod(user)) {
                 System.out.println("USER IS MOD");
             } else {
                 sendMessage("Command ist nur für Mods", channel);
-                channel.timeOut(user, 1);
-                logger.info("USER HAS GOT A TIMEOUT FOR 1 SECOND  \n USER: " + user);
-                System.out.println("USER HAS GOT A TIMEOUT FOR 1 SECOND  \n USER: " + user);
+                //channel.timeOut(user, 1);
+                timeout(user, channel, 1);
             }
         }
+        if (cmd.equalsIgnoreCase("ban")) {
+            if (channel.isMod(user)) {
+                if (cmd.length() < 2) {
+                    sendMessage("not ready at now", channel);
+                } else {
+                    logger.info("false use");
+                }
+            } else {
+                sendMessage("COMMAND IS ONLY FOR MODERATORS", channel);
+                //channel.timeOut(user, 1);
+                timeout(user, channel, 1);
+            }
+        }
+        if (cmd.equalsIgnoreCase("longtimeout")) {
+            if (channel.isMod(user)) {
+                sendMessage("no", channel);
+            } else {
+                sendMessage("/me COMMAND IS ONLY FOR MODERATORS @" + user, channel);
+                timeout(user, channel, 10);
+            }
+        }
+    }
+
+    private void timeout(User user, Channel channel, int time) {
+        timeoutslog();
+        channel.timeOut(user, time);
+        logger.info("USER HAS GOT A TIMEOUT FOR " + time + " USER: " + user);
     }
 }
