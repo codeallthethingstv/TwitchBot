@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class HGBot extends TwitchBot {
-    FileHandler fh;
-    String multi;
+    private FileHandler fh;
     private Logger logger = Logger.getLogger(HGBot.class.getName());
     public HGBot() {
         setClientID(GetSecrets.getClientID());
@@ -23,9 +22,8 @@ public class HGBot extends TwitchBot {
     }
 
     private void timeoutslog() {
-        FileHandler fh;
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/timeouts/timeouts.log");
+            fh = new FileHandler("D:/java/TwitchBot/logs/timeouts/timeouts.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -36,9 +34,8 @@ public class HGBot extends TwitchBot {
     }
 
     private void banlog() {
-        FileHandler fh;
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/bans/bans.log");
+            fh = new FileHandler("D:/java/TwitchBot/logs/bans/bans.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -48,9 +45,8 @@ public class HGBot extends TwitchBot {
     }
 
     private void chatlog() {
-        FileHandler fh;
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/chat/chat.log");
+            fh = new FileHandler("D:/java/TwitchBot/logs/chat/chat.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -60,7 +56,9 @@ public class HGBot extends TwitchBot {
     }
     @Override
     protected void onMessage(User user, Channel channel, String message) {
-        chatlog();
+        if (message.length() <= 1) {
+            chatlog();
+        }
     }
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
