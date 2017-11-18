@@ -16,6 +16,7 @@ public class HGBot extends TwitchBot {
     protected void onMessage(User user, Channel channel, String message) {
         if (message.equalsIgnoreCase("test")) {
             sendMessage("test", channel);
+            sendMessage("tesst", channel);
         }
     }
 }
