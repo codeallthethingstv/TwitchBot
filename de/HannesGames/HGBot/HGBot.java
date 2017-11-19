@@ -3,6 +3,7 @@ package de.HannesGames.HGBot;
 import com.cavariux.twitchirc.Chat.Channel;
 import com.cavariux.twitchirc.Chat.User;
 import com.cavariux.twitchirc.Core.TwitchBot;
+import de.HannesGames.HGBot.util.CheckForFilter;
 import de.HannesGames.HGBot.util.GetSecrets;
 import de.HannesGames.HGBot.util.data.Config;
 
@@ -56,8 +57,9 @@ public class HGBot extends TwitchBot {
     }
     @Override
     protected void onMessage(User user, Channel channel, String message) {
-        if (message.length() <= 1) {
+        if (message.length() >= 1) {
             chatlog();
+            new CheckForFilter(message);
         }
     }
     @Override
