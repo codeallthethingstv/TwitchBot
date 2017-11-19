@@ -3,6 +3,8 @@ package de.HannesGames.HGBot;
 import com.cavariux.twitchirc.Chat.Channel;
 import com.cavariux.twitchirc.Chat.User;
 import com.cavariux.twitchirc.Core.TwitchBot;
+import de.HannesGames.HGBot.commands.CommandListner;
+import de.HannesGames.HGBot.commands.Commands;
 import de.HannesGames.HGBot.util.CheckForFilter;
 import de.HannesGames.HGBot.util.GetSecrets;
 import de.HannesGames.HGBot.util.data.Config;
@@ -15,11 +17,21 @@ import java.util.logging.SimpleFormatter;
 
 public class HGBot extends TwitchBot {
     private FileHandler fh;
+    private CommandListner commandListner;
     private Logger logger = Logger.getLogger(HGBot.class.getName());
     public HGBot() {
         setClientID(GetSecrets.getClientID());
         setOauth_Key(GetSecrets.getAuthKey());
         setUsername(GetSecrets.getUsername());
+        initializeCommands();
+    }
+
+    private void initializeCommands() {
+        commandListner = new CommandListner();
+        commandListner.registerCommand("test", Commands.test);
+        commandListner.registerCommand("mit", Commands.mitDabei);
+        commandListner.registerCommand("multi", Commands.multi);
+        commandListner.registerCommand("longtimeout", Commands.longTimout);
     }
 
     private void timeoutslog() {
@@ -70,55 +82,24 @@ public class HGBot extends TwitchBot {
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
         banlog();
-        if (cmd.equalsIgnoreCase("test")) {
-            if (channel.isMod(user)) {
-                System.out.println("USER IS MOD");
-            } else {
-                sendMessage("Command ist nur für Mods", channel);
-                timeout(user, channel, 1);
-            }
-        } else if (cmd.equalsIgnoreCase("longtimeout")) {
-            if (channel.isMod(user)) {
-                sendMessage("no", channel);
-            } else {
-                sendMessage("/me COMMAND IS ONLY FOR MODERATORS @" + user, channel);
-                timeout(user, channel, 10);
-            }
-        } else if (cmd.equalsIgnoreCase("multi")) {
-            if (channel.isMod(user)) {
-                if (existMulti())
-                    sendMessage("/me Der Multistream ist unter " + Config.getMulti() + " zufinden.", channel);
-                else
-                    sendMessage("/me Es gibt keinen Multistream @" + user, channel);
-            } else {
-                if (existMulti())
-                    sendMessage("/me Der Multistream ist unter " + Config.getMulti() + " zufinden.", channel);
-                else
-                    sendMessage("/me Es gibt keinen Multistream. @" + user, channel);
-            }
-        } else if (cmd.equalsIgnoreCase("mit dabei")) {
-            if (existMitDabei())
-                sendMessage("Mit dabei ist " + Config.getMitDabei(), channel);
-            else
-                sendMessage("Es ist niemand mit dabei", channel);
-        }
+        commandListner.launchCommand(user, channel, cmd);
     }
 
-    private boolean existMitDabei() {
+    public boolean existMitDabei() {
         return !Objects.equals(Config.getMitDabei(), "niemand");
     }
 
-    private boolean existMulti() {
+    public boolean existMulti() {
         return !Objects.equals(Config.getMulti(), "Es gibt keinen Multi-stream");
     }
 
-    private void timeout(User user, Channel channel, int time) {
+    public void timeout(User user, Channel channel, int time) {
         timeoutslog();
         channel.timeOut(user, time);
         logger.info("USER HAS GOT A TIMEOUT FOR " + time + " USER: " + user);
     }
 
-    private void ban(User user, Channel channel, String reason) {
+    public void ban(User user, Channel channel, String reason) {
         banlog();
         channel.ban(user);
         logger.info("User: " + user + " was BANNED for: " + reason);
