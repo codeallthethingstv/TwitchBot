@@ -32,11 +32,13 @@ public class HGBot extends TwitchBot {
         commandListner.registerCommand("mit", Commands.mitDabei);
         commandListner.registerCommand("multi", Commands.multi);
         commandListner.registerCommand("longtimeout", Commands.longTimout);
+        commandListner.registerCommand("slowmode", Commands.slowMode);
     }
+
 
     private void timeoutslog() {
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/timeouts/timeouts.html");
+            fh = new FileHandler("timeouts.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -48,7 +50,7 @@ public class HGBot extends TwitchBot {
 
     private void banlog() {
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/bans/bans.html");
+            fh = new FileHandler("bans.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -59,7 +61,7 @@ public class HGBot extends TwitchBot {
 
     private void chatlog() {
         try {
-            fh = new FileHandler("D:/java/TwitchBot/logs/chat/chat.html");
+            fh = new FileHandler("chat.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
@@ -78,6 +80,7 @@ public class HGBot extends TwitchBot {
 
 
         }
+
     }
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {

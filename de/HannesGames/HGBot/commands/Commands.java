@@ -44,4 +44,18 @@ public class Commands {
         else
             Main.getBot().sendMessage("Es ist niemand mit dabei", channel);
     };
+
+    public static ICommand slowMode = (user, channel, cmd) -> {
+        if (user.isMod(channel)) {
+            if (cmd != null && cmd.split(" ").length == 2) {
+                String time = cmd.split(" ")[1];
+                if (time.equals("0")) {
+                    channel.slowOff();
+                } else {
+                    channel.slowMode(Integer.parseInt(time));
+                    Main.getBot().sendMessage("/me @" + user + ", Slowmode set to " + time, channel);
+                }
+            }
+        }
+    };
 }
