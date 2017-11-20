@@ -58,4 +58,8 @@ public class Commands {
             }
         }
     };
+
+    public static ICommand coins = (user, channel, cmd) -> {
+        Main.getBot().sendMessage("@" + user + ", Du hast" + Main.getBot().getCoinManager().getCoinsForUser(user) + " coins!", channel);
+    };
 }
