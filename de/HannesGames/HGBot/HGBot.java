@@ -3,6 +3,7 @@ package de.HannesGames.HGBot;
 import com.cavariux.twitchirc.Chat.Channel;
 import com.cavariux.twitchirc.Chat.User;
 import com.cavariux.twitchirc.Core.TwitchBot;
+import de.HannesGames.HGBot.coins.CoinManager;
 import de.HannesGames.HGBot.commands.CommandListner;
 import de.HannesGames.HGBot.commands.Commands;
 import de.HannesGames.HGBot.util.CheckForFilter;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class HGBot extends TwitchBot {
+    private CoinManager coinManager;
     private FileHandler fh;
     private CommandListner commandListner;
     private Logger logger = Logger.getLogger(HGBot.class.getName());
@@ -26,6 +28,10 @@ public class HGBot extends TwitchBot {
         initializeCommands();
     }
 
+    public CoinManager getCoinManager() {
+        return coinManager;
+    }
+
     private void initializeCommands() {
         commandListner = new CommandListner();
         commandListner.registerCommand("test", Commands.test);
@@ -33,6 +39,7 @@ public class HGBot extends TwitchBot {
         commandListner.registerCommand("multi", Commands.multi);
         commandListner.registerCommand("longtimeout", Commands.longTimout);
         commandListner.registerCommand("slowmode", Commands.slowMode);
+        commandListner.registerCommand("coins", Commands.coins);
     }
 
 
@@ -69,7 +76,19 @@ public class HGBot extends TwitchBot {
             e.printStackTrace();
         }
     }
+
     @Override
+    protected void userJoins(User user, Channel channel) {
+        super.userJoins(user, channel);
+        if (coinManager == null) {
+            coinManager = new CoinManager(channel);
+            coinManager.startUp();
+        }
+        if (coinManager.getCoinsForUser(user) == null) {
+            coinManager.setCoins(user, 0.5);
+        }
+    }
+
     protected void onMessage(User user, Channel channel, String message) {
         if (message.length() >= 1) {
             chatlog();
@@ -77,14 +96,16 @@ public class HGBot extends TwitchBot {
                 new CheckForFilter("USER IS MODERATOR");
             else
             new CheckForFilter(message);
-
-
         }
+    }
+
+    @Override
+    protected void onMessage(User user, Channel channel, String message) {
+
 
     }
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
-        banlog();
         commandListner.launchCommand(user, channel, cmd);
     }
 
