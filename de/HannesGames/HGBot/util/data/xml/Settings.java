@@ -17,8 +17,8 @@ import java.io.IOException;
 
 
 public class Settings {
-    protected String file = "settings.xml"; //filename
-    protected String path = "";
+    private String file = "settings.xml"; //filename
+    private String path = "";
 
     public void read() throws ParserConfigurationException, IOException, SAXException {
         File fXmlFile = new File(path + "/" + file);
