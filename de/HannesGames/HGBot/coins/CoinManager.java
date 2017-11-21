@@ -33,16 +33,17 @@ public class CoinManager {
         @Override
         public void run() {
             while (run) {
-                if (channel.isLive()) {
+                if (!channel.isLive()) {
+                    System.out.println("Test!");
                     for (User user : channel.getViewers()) {
-                        if (user.isFollowing(channel)) {
-                            coins.put(user + "", coins.get(user + "") + 0.1);
-                        }
+                        System.out.println(user + "");
+
+                        setCoins(user, coins.get(user + "") + 0.1);
                     }
                 }
                 writeCoinsToFile();
                 try {
-                    Thread.sleep(60 * 1000);
+                    Thread.sleep(40000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

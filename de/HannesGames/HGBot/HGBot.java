@@ -91,15 +91,11 @@ public class HGBot extends TwitchBot {
 
     @Override
     protected void onMessage(User user, Channel channel, String message) {
-        if (message.length() >= 1) {
-            chatlog();
-            new CheckForFilter(message);
-        }
+
 
     }
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
-        banlog();
         commandListner.launchCommand(user, channel, cmd);
     }
 

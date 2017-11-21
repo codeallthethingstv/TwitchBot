@@ -1,7 +1,5 @@
 package de.HannesGames.HGBot.commands;
 
-import com.cavariux.twitchirc.Chat.Channel;
-import com.cavariux.twitchirc.Chat.User;
 import de.HannesGames.HGBot.Main;
 import de.HannesGames.HGBot.util.data.Config;
 
@@ -60,6 +58,6 @@ public class Commands {
     };
 
     public static ICommand coins = (user, channel, cmd) -> {
-        Main.getBot().sendMessage("@" + user + ", Du hast" + Main.getBot().getCoinManager().getCoinsForUser(user) + " coins!", channel);
+        Main.getBot().sendMessage("@" + user + ", Du hast " + Main.getBot().getCoinManager().getCoinsForUser(user) + " coins!", channel);
     };
 }
