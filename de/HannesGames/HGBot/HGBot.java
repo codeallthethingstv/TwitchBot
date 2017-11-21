@@ -89,6 +89,16 @@ public class HGBot extends TwitchBot {
         }
     }
 
+    protected void onMessage(User user, Channel channel, String message) {
+        if (message.length() >= 1) {
+            chatlog();
+            if(channel.isMod(user))
+                new CheckForFilter("USER IS MODERATOR");
+            else
+            new CheckForFilter(message);
+        }
+    }
+
     @Override
     protected void onMessage(User user, Channel channel, String message) {
 

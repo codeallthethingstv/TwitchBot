@@ -2,10 +2,23 @@ package de.HannesGames.HGBot;
 
 import com.cavariux.twitchirc.Chat.Channel;
 import de.HannesGames.HGBot.util.data.Config;
+import de.HannesGames.HGBot.util.data.xml.Configs;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
 
 public class Main {
     private static HGBot bot;
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, TransformerException {
+        /*
+         * adding settings XML!
+         * a simple way to do this!
+         */
+        /*new Settings().save();*/
+        new Configs().read();
         bot = new HGBot();
         bot.connect();
         Channel channel = bot.joinChannel("#" + Config.getTwitchAccount());
