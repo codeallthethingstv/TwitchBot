@@ -1,7 +1,7 @@
-package de.HannesGames.HGBot.util;
+package io.github.hannesgames.hgbot.util;
 
-import de.HannesGames.HGBot.util.data.Filters;
-import de.HannesGames.HGBot.util.data.Logger;
+import io.github.hannesgames.hgbot.util.data.Filters;
+import io.github.hannesgames.hgbot.util.data.Logger;
 
 public class CheckForFilter {
     Logger log = new Logger();

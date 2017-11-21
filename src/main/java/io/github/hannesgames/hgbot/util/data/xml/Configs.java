@@ -1,4 +1,4 @@
-package de.HannesGames.HGBot.util.data.xml;
+package io.github.hannesgames.hgbot.util.data.xml;
 
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;

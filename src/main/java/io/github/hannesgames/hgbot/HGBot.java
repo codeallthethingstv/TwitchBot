@@ -1,14 +1,15 @@
-package de.HannesGames.HGBot;
+package io.github.hannesgames.hgbot;
 
 import com.cavariux.twitchirc.Chat.Channel;
 import com.cavariux.twitchirc.Chat.User;
 import com.cavariux.twitchirc.Core.TwitchBot;
-import de.HannesGames.HGBot.coins.CoinManager;
-import de.HannesGames.HGBot.commands.CommandListner;
-import de.HannesGames.HGBot.commands.Commands;
-import de.HannesGames.HGBot.util.CheckForFilter;
-import de.HannesGames.HGBot.util.GetSecrets;
-import de.HannesGames.HGBot.util.data.Config;
+import io.github.hannesgames.hgbot.coins.CoinManager;
+import io.github.hannesgames.hgbot.commands.CommandListner;
+import io.github.hannesgames.hgbot.commands.Commands;
+import io.github.hannesgames.hgbot.util.CheckForFilter;
+import io.github.hannesgames.hgbot.util.GetSecrets;
+import io.github.hannesgames.hgbot.util.data.Config;
+
 
 import java.io.IOException;
 import java.util.Objects;
@@ -89,6 +90,7 @@ public class HGBot extends TwitchBot {
         }
     }
 
+    @Override
     protected void onMessage(User user, Channel channel, String message) {
         if (message.length() >= 1) {
             chatlog();
@@ -99,11 +101,7 @@ public class HGBot extends TwitchBot {
         }
     }
 
-    @Override
-    protected void onMessage(User user, Channel channel, String message) {
 
-
-    }
     @Override
     protected void onCommand(User user, Channel channel, String cmd) {
         commandListner.launchCommand(user, channel, cmd);

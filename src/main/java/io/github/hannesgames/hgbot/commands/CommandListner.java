@@ -1,4 +1,4 @@
-package de.HannesGames.HGBot.commands;
+package io.github.hannesgames.hgbot.commands;
 
 import com.cavariux.twitchirc.Chat.Channel;
 import com.cavariux.twitchirc.Chat.User;

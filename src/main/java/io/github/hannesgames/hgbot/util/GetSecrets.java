@@ -1,4 +1,4 @@
-package de.HannesGames.HGBot.util;
+package io.github.hannesgames.hgbot.util;
 
 import java.io.*;
 import java.util.Properties;

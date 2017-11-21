@@ -1,7 +1,7 @@
-package de.HannesGames.HGBot.commands;
+package io.github.hannesgames.hgbot.commands;
 
-import de.HannesGames.HGBot.Main;
-import de.HannesGames.HGBot.util.data.Config;
+import io.github.hannesgames.hgbot.Main;
+import io.github.hannesgames.hgbot.util.data.Config;
 
 public class Commands {
     public static ICommand test = (user, channel, cmd) -> {
