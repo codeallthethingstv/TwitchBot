@@ -6,6 +6,17 @@ import de.HannesGames.HGBot.util.data.Config;
 public class Main {
     private static HGBot bot;
     public static void main(String[] args) {
+        /**
+         * adding settings XML!
+         * a simple way to do this!
+         */
+        /*  try {
+            new Settings().save();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (TransformerException e) {
+            e.printStackTrace();
+        }*/
         bot = new HGBot();
         bot.connect();
         Channel channel = bot.joinChannel("#" + Config.getTwitchAccount());

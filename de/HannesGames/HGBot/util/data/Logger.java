@@ -11,7 +11,7 @@ public class Logger {
     public Logger() {
         try {
             setLog("log");
-            fh = new FileHandler("D:/java/TwitchBot/logs/logs.html");
+            fh = new FileHandler("logs.html");
             logger.addHandler(fh);
             SimpleFormatter formatter = new SimpleFormatter();
             fh.setFormatter(formatter);
