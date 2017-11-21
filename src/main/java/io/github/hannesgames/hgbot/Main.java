@@ -1,8 +1,9 @@
-package de.HannesGames.HGBot;
+package io.github.hannesgames.hgbot;
 
 import com.cavariux.twitchirc.Chat.Channel;
-import de.HannesGames.HGBot.util.data.Config;
-import de.HannesGames.HGBot.util.data.xml.Configs;
+
+import io.github.hannesgames.hgbot.util.data.Config;
+import io.github.hannesgames.hgbot.util.data.xml.Configs;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

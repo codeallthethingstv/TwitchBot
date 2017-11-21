@@ -1,4 +1,4 @@
-package de.HannesGames.HGBot.util.data;
+package io.github.hannesgames.hgbot.util.data;
 
 
 import java.io.IOException;
