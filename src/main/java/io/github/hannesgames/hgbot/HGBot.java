@@ -92,6 +92,7 @@ public class HGBot extends TwitchBot {
 
     @Override
     protected void onMessage(User user, Channel channel, String message) {
+        coinManager.UserWrote(user);
         if (message.length() >= 1) {
             chatlog();
             if(channel.isMod(user))

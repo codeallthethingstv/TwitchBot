@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class CoinManager {
     private final String PATH = "coins.map";
     private HashMap<String, Double> coins;
+    private HashMap<User, Long> time;
     private Channel channel;
     private boolean run = true;
 
@@ -34,19 +35,21 @@ public class CoinManager {
         public void run() {
             while (run) {
                 if (!channel.isLive()) {
-                    System.out.println("Test!");
+                    try {
+                        Thread.sleep(40000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     for (User user : channel.getViewers()) {
                         System.out.println(user + "");
 
-                        setCoins(user, coins.get(user + "") + 0.1);
+                        if (System.currentTimeMillis() - time.get(user) < 30*60*1000){
+                            System.out.print("Time Correct!");
+                            setCoins(user, coins.get(user + "") + 0.1);
+                        }
                     }
                 }
                 writeCoinsToFile();
-                try {
-                    Thread.sleep(40000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         }
     };
@@ -88,6 +91,10 @@ public class CoinManager {
             e.printStackTrace();
         }
 
+    }
+
+    public void UserWrote(User user){
+        time.put(user, System.currentTimeMillis());
     }
 
     public Double getCoinsForUser(User user) {
